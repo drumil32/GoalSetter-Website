@@ -1,0 +1,20 @@
+{
+  "name": "goalsetter-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server" : "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drumil32/GoalSetter-Website.git"
+  },
+  "author": "Drumil Akhenia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drumil32/GoalSetter-Website/issues"
+  },
+  "homepage": "https://github.com/drumil32/GoalSetter-Website#readme"
+}
