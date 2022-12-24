@@ -7,6 +7,8 @@ function Header() {
         <>
             <header className="header">
                 <div className="logo">
+                    <Link to='/' >Support Desk</Link>
+                </div>
                     <ul>
                         <li>
                             <Link to="/login">
@@ -19,7 +21,6 @@ function Header() {
                             </Link>
                         </li>
                     </ul>
-                </div>
             </header>
             <Outlet/>
         </>

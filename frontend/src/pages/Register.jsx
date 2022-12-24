@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
+import {toast} from 'react-toastify';
+import {useSelector,useDispatch} from 'react-redux';
+import {register,reset} from '../features/auth/authSlice';
 
 function Register() {
 
@@ -10,6 +14,21 @@ function Register() {
         confirmPassword: '',
     });
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {user,isLoading,isError,isSuccess,message} = useSelector(state=>state.auth);
+
+    useEffect(()=>{
+        if( isError ){
+            toast.error(message);
+        }
+        if( isSuccess && user ){
+            navigate('/');
+        }
+        dispatch(reset());
+    },[isError,isSuccess,user,message,navigate])
+
+
     const onChange = (event) => {
         const { name, value } = event.target;
 
@@ -18,7 +37,16 @@ function Register() {
 
     const onSubmit = (event) => {
         event.preventDefault();
-
+        if( formData.password !== formData.confirmPassword ){
+            toast.error('password is not match');
+        }else{
+            const userData = {
+                name : formData.name,
+                email : formData.email,
+                password : formData.password
+            };
+            dispatch(register(userData));
+        }
     }
     return (
         <>
@@ -38,6 +66,7 @@ function Register() {
                             placeholder="Enter your name"
                             onChange={onChange}
                             className="form-control"
+                            required
                         />
                     </div>
                     <div className="form-group">
@@ -48,26 +77,29 @@ function Register() {
                             placeholder="Enter your Email"
                             onChange={onChange}
                             className="form-control"
+                            required
                         />
                     </div>
                     <div className="form-group">
                         <input
-                            type="passwod"
-                            name="passwod"
-                            value={formData.passwod}
-                            placeholder="Enter passwod"
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            placeholder="Enter password"
                             onChange={onChange}
                             className="form-control"
+                            required
                         />
                     </div>
                     <div className="form-group">
                         <input
-                            type="email"
+                            type="password"
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             placeholder="Enter confirmPassword"
                             onChange={onChange}
                             className="form-control"
+                            required
                         />
                     </div>
                     <div className="form-group">
